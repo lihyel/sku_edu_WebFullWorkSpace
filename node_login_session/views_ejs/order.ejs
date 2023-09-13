@@ -1,0 +1,117 @@
+<!DOCTYPE html > 
+ 
+<html>
+<head>
+<title>눈에 띄는 새책</title>
+</head>
+<body>
+	<h3>눈에 띄는 새책</h3>
+	<form action="http://localhost:4000/order" method="get">
+		<table border="1">
+			<tr>
+				 <td><b>스페인은 가우디다</b><br>김희곤 저 | 오브제</td>
+				<td>14,400원</td> 
+				<td>주문<br/><input type="checkbox" name="book1" value="14400"/></td>
+				<td>수량<br/>
+				<select name="book1qty">
+				  <option>0</option><!-- 이것을 선택하면 문자 "0"이  "book1qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>1</option><!-- 이것을 선택하면 문자 "1"이  "book1qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>2</option><!-- 이것을 선택하면 문자 "2"이  "book1qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>3</option><!-- 이것을 선택하면 문자 "3"이  "book1qty"의 파라미터 값으로 전달됩니다. -->
+				</select>
+			</tr>
+			<tr>
+				 <td><b>우리 안의 식민사관 </b><br>이덕일 저 | 만권당</td>
+				<td>16,200원</td>
+				<td>주문<br/><input type="checkbox" name="book2" value="16200"/></td>
+				<td>수량<br>
+				<select name="book2qty">
+				  <option>0</option><!-- 이것을 선택하면 문자 "0"이  "book2qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>1</option><!-- 이것을 선택하면 문자 "1"이  "book2qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>2</option><!-- 이것을 선택하면 문자 "2"이  "book2qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>3</option><!-- 이것을 선택하면 문자 "3"이  "book2qty"의 파라미터 값으로 전달됩니다. -->
+				</select>
+				</td>
+			</tr>
+			<tr>
+				 <td><b>우리 성씨와 족보 이야기</b><br>박홍갑 저 | 산처럼</td>
+				<td>12,250원</td>
+				<td>주문<br/><input type="checkbox" name="book3" value="12250"/></td>
+				<td>수량<br>
+				<select name="book3qty">
+				  <option>0</option><!-- 이것을 선택하면 문자 "0"이  "book3qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>1</option><!-- 이것을 선택하면 문자 "1"이  "book3qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>2</option><!-- 이것을 선택하면 문자 "2"이  "book3qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>3</option><!-- 이것을 선택하면 문자 "3"이  "book3qty"의 파라미터 값으로 전달됩니다. -->
+				</select>
+				</td>
+			</tr>
+			<tr>
+				 <td><b>이이제이의 만화 한국현대사 1</b><br>굽시니스트 글,그림/이이제이 원작 | 왕의서재</td>
+				<td>12,150원</td>
+				<td>주문<br/><input type="checkbox" name="book4" value="12250"/></td>
+				<td>수량<br>
+				<select name="book4qty">
+				  <option>0</option><!-- 이것을 선택하면 문자 "0"이  "book4qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>1</option><!-- 이것을 선택하면 문자 "1"이  "book4qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>2</option><!-- 이것을 선택하면 문자 "2"이  "book4qty"의 파라미터 값으로 전달됩니다. -->
+				  <option>3</option><!-- 이것을 선택하면 문자 "3"이  "book4qty"의 파라미터 값으로 전달됩니다. -->
+				</select>
+				</td>
+			</tr>
+		</table>
+		<br> <input type="submit" value="주문하기" /> 총 주문금액 :
+		<!--<%= total %> -->
+		<span id="total">0</span> 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		초기화<input type="checkbox" name="init"  />
+	</form>
+
+	<!-- order.ejs 파일 내에 JavaScript 코드 추가 -->
+<script>
+	// 수량 변경 시 호출되는 함수
+	function updateTotal() {
+	  // 각 상품의 가격과 수량을 읽어옴
+	  const book1Price = 14400;
+	  const book1Qty = parseInt(document.querySelector('select[name="book1qty"]').value);
+	  const book2Price = 16200;
+	  const book2Qty = parseInt(document.querySelector('select[name="book2qty"]').value);
+	  const book3Price = 12250;
+	  const book3Qty = parseInt(document.querySelector('select[name="book3qty"]').value);
+	  const book4Price = 12150;
+	  const book4Qty = parseInt(document.querySelector('select[name="book4qty"]').value);
+  
+	  // 각 상품의 가격과 수량을 곱하여 총 주문 금액 계산
+	  const total = book1Price * book1Qty + book2Price * book2Qty + book3Price * book3Qty + book4Price * book4Qty;
+  
+	  // 총 주문 금액을 화면에 표시
+	  document.querySelector('#total').innerText = total;
+	}
+  
+	// 수량 변경 시 이벤트 핸들러 등록
+	const qtySelects = document.querySelectorAll('select[name^="book"]');
+	qtySelects.forEach((select) => {
+	  select.addEventListener('change', updateTotal);
+	});
+  
+	// 초기화 체크박스 이벤트 핸들러 등록
+	const initCheckbox = document.querySelector('input[name="init"]');
+	initCheckbox.addEventListener('change', () => {
+	  if (initCheckbox.checked) {
+		// 초기화 체크박스가 체크되면 수량을 0으로 설정하고 총 주문 금액 초기화
+		qtySelects.forEach((select) => {
+		  select.value = 0;
+		});
+		updateTotal();
+	  }
+	});
+  
+	// 페이지 로드 시 초기화
+	window.onload = () => {
+	  updateTotal();
+	};
+  </script>
+  
+
+</body>
+</html>
